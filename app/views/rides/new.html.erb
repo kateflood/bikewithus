@@ -1,1 +1,77 @@
-<h1>Add a ride</h1>
+<div class="grid-items">
+  <h2>Add a new ride</h2>
+
+  <section class="grid-item">
+    <div class="switch-container">
+      <input type="checkbox" id="switch-toggle-1" name="switch-toggle" class="switch-checkbox" unchecked/>
+      <label class="switch-label" for="switch-toggle-1">
+        <div class="switch-inner"></div>
+        <div class="switch-toggle-switch"></div>
+      </label>
+      <span id="on_off">Not Riding</span>
+    </div>
+
+    <div> 
+      <%= form_for (@ride) do |f| %>
+          
+          <%= f.text_field :ride_type %>
+          <%= f.text_field :start_latitude, id:"startLat"%>
+          <%= f.text_field :start_longitude, id:"startLon"%>
+          <%= f.text_field :end_latitude %>
+          <%= f.text_field :end_longitude %>
+          <%= f.submit "Add this Ride" %>
+          <button><%= link_to 'Nevermind', root_url %></button>
+        <% end %>
+    </div>
+
+  </section>
+
+  <section class="grid-item grid-item-big">
+     <div id="geo"></div>
+  </section>
+</div> 
+
+<script>
+
+  window.onload = function() {
+    var startPos;
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        startPos = position;
+        document.getElementById("startLat").innerHTML = startPos.coords.latitude;
+        document.getElementById("startLon").innerHTML = startPos.coords.longitude;
+      }, function(error) {
+        alert("Error occurred. Error code: " + error.code);
+        // error.code can be:
+        //   0: unknown error
+        //   1: permission denied
+        //   2: position unavailable (error response from locaton provider)
+        //   3: timed out
+      });
+    };
+  };
+  // turn on tracking when the toggle switch is on
+  function handleRideOrNotRide(evt) {
+    var state = document.getElementById('switch-toggle-1').checked;
+    if (state === true) {
+      // first let's change the label
+      document.getElementById('on_off').innerHTML='Riding';
+      // now, let's do some tracking
+      trackRide(true)
+    } else {
+      document.getElementById('on_off').innerHTML='Not Riding';
+      trackRide(false)
+    };
+  };
+
+  function trackRide(state) {
+    if (state === true) {
+      ride_points = {}
+    }
+
+  }
+
+  document.getElementById('switch-toggle-1').addEventListener('change', handleRideOrNotRide);
+</script>
+
