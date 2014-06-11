@@ -14,7 +14,7 @@
     <div> 
       <%= form_for (@ride) do |f| %>
           
-          <%= f.text_field :ride_type %>
+          <%= f.text_field :ride_type, placeholder: "What kind of ride"%>
           <%= f.text_field :start_latitude, id:"startLat"%>
           <%= f.text_field :start_longitude, id:"startLon"%>
           <%= f.text_field :end_latitude %>
@@ -39,8 +39,8 @@
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         startPos = position;
-        document.getElementById("startLat").innerHTML = startPos.coords.latitude;
-        document.getElementById("startLon").innerHTML = startPos.coords.longitude;
+        document.getElementById("startLat").value = startPos.coords.latitude;
+        document.getElementById("startLon").value = startPos.coords.longitude;
       }, function(error) {
         alert("Error occurred. Error code: " + error.code);
         // error.code can be:

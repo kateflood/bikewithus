@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140518235314) do
+ActiveRecord::Schema.define(version: 20140611171240) do
 
   create_table "rides", force: true do |t|
     t.float    "start_latitude"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20140518235314) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "start_location"
+    t.string   "end_location"
   end
 
 end
